@@ -10,7 +10,7 @@
 
 * [x] `chore: initialize project`
 * [x] `build: add PostgreSQL and Spring Data JPA dependencies`
-* [ ] `config: configure PostgreSQL datasource`
+* [x] `config: configure PostgreSQL datasource`
 * [ ] `feat: map Task as JPA entity`
 * [ ] `feat: replace in-memory repository with Spring Data JPA`
 * [ ] `test: verify task persistence and retrieval`
