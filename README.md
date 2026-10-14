@@ -9,7 +9,7 @@
 ## План
 
 * [x] `chore: initialize project`
-* [ ] `build: add PostgreSQL and Spring Data JPA dependencies`
+* [x] `build: add PostgreSQL and Spring Data JPA dependencies`
 * [ ] `config: configure PostgreSQL datasource`
 * [ ] `feat: map Task as JPA entity`
 * [ ] `feat: replace in-memory repository with Spring Data JPA`
