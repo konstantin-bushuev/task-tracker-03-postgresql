@@ -1,3 +1,15 @@
 spring:
   application:
-    name: task-tracker-01-spring-boot
+    name: task-tracker-03-postgresql
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/task_tracker
+    username: task_tracker
+    password: task_tracker
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
