@@ -43,13 +43,13 @@ class TaskServiceTest {
 
         Task result = taskService.createTask(request);
 
-        assertEquals(1L, result.id());
-        assertEquals("Task title", result.title());
-        assertEquals("This is task description", result.description());
-        assertEquals(TaskStatus.TODO, result.status());
-        assertNotNull(result.createdAt());
-        assertNotNull(result.updatedAt());
-        assertEquals(result.createdAt(), result.updatedAt());
+        assertEquals(1L, result.getId());
+        assertEquals("Task title", result.getTitle());
+        assertEquals("This is task description", result.getDescription());
+        assertEquals(TaskStatus.TODO, result.getStatus());
+        assertNotNull(result.getCreatedAt());
+        assertNotNull(result.getUpdatedAt());
+        assertEquals(result.getCreatedAt(), result.getUpdatedAt());
 
         verify(taskRepository).save(result);
     }
@@ -125,11 +125,11 @@ class TaskServiceTest {
 
         Task result = taskService.updateTask(1L, request);
 
-        assertEquals("New title", result.title());
-        assertEquals("New description", result.description());
-        assertEquals(TaskStatus.IN_PROGRESS, result.status());
-        assertEquals(createdAt, result.createdAt());
-        assertFalse(result.updatedAt().isBefore(createdAt));
+        assertEquals("New title", result.getTitle());
+        assertEquals("New description", result.getDescription());
+        assertEquals(TaskStatus.IN_PROGRESS, result.getStatus());
+        assertEquals(createdAt, result.getCreatedAt());
+        assertFalse(result.getUpdatedAt().isBefore(createdAt));
 
         verify(taskRepository).save(result);
     }
@@ -170,11 +170,11 @@ class TaskServiceTest {
 
         Task result = taskService.completeTask(1L);
 
-        assertEquals(TaskStatus.DONE, result.status());
-        assertEquals(existingTask.title(), result.title());
-        assertEquals(existingTask.description(), result.description());
-        assertEquals(existingTask.createdAt(), result.createdAt());
-        assertFalse(result.updatedAt().isBefore(createdAt));
+        assertEquals(TaskStatus.DONE, result.getStatus());
+        assertEquals(existingTask.getTitle(), result.getTitle());
+        assertEquals(existingTask.getDescription(), result.getDescription());
+        assertEquals(existingTask.getCreatedAt(), result.getCreatedAt());
+        assertFalse(result.getUpdatedAt().isBefore(createdAt));
 
         verify(taskRepository).save(result);
     }
