@@ -25,7 +25,7 @@ public class TaskRepository {
 
     public Optional<Task> findById(Long id) {
         return tasks.stream()
-                .filter(task -> task.id().equals(id))
+                .filter(task -> task.getId().equals(id))
                 .findFirst();
     }
 
@@ -35,6 +35,6 @@ public class TaskRepository {
     }
 
     public boolean deleteById(Long id) {
-        return  tasks.removeIf(task -> task.id().equals(id));
+        return  tasks.removeIf(task -> task.getId().equals(id));
     }
 }

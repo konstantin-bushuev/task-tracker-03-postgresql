@@ -52,8 +52,8 @@ public class TaskService {
                 id,
                 request.title(),
                 request.description(),
-                initialTask.status(),
-                initialTask.createdAt(),
+                initialTask.getStatus(),
+                initialTask.getCreatedAt(),
                 LocalDateTime.now()
         );
 
@@ -68,10 +68,10 @@ public class TaskService {
 
         Task task = new Task(
                 id,
-                initialTask.title(),
-                initialTask.description(),
+                initialTask.getTitle(),
+                initialTask.getDescription(),
                 TaskStatus.DONE,
-                initialTask.createdAt(),
+                initialTask.getCreatedAt(),
                 LocalDateTime.now()
         );
 
