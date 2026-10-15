@@ -12,6 +12,7 @@
 * [x] `build: add PostgreSQL and Spring Data JPA dependencies`
 * [x] `config: configure PostgreSQL datasource`
 * [x] `feat: map Task as JPA entity`
+* [x] `ci: add PostgreSQL service for tests`
 * [ ] `feat: replace in-memory repository with Spring Data JPA`
 * [ ] `test: verify task persistence and retrieval`
 * [ ] `feat: persist task updates and deletions`
