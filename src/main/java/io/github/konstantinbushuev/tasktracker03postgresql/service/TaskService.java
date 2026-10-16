@@ -20,11 +20,10 @@ public class TaskService {
     }
 
     public Task createTask(TaskRequestDTO request) {
-        Long id = taskRepository.nextId();
         LocalDateTime currentTime = LocalDateTime.now();
 
         Task task = new Task(
-                id,
+                null,
                 request.title(),
                 request.description(),
                 TaskStatus.TODO,
@@ -57,8 +56,6 @@ public class TaskService {
                 LocalDateTime.now()
         );
 
-        taskRepository.deleteById(id);
-
         return taskRepository.save(task);
     }
 
@@ -75,17 +72,15 @@ public class TaskService {
                 LocalDateTime.now()
         );
 
-        taskRepository.deleteById(id);
-
         return taskRepository.save(task);
     }
 
     public void deleteTask(Long id) {
-        boolean deleted = taskRepository.deleteById(id);
-
-        if (!deleted) {
+        if (!taskRepository.existsById(id)) {
             throw new TaskNotFoundException(id);
         }
+
+        taskRepository.deleteById(id);
     }
 
 }

@@ -15,6 +15,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import org.springframework.test.annotation.DirtiesContext;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import org.junit.jupiter.api.BeforeEach;
+import io.github.konstantinbushuev.tasktracker03postgresql.repository.TaskRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -24,9 +27,18 @@ class TaskControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private TaskRepository taskRepository;
+
+    @BeforeEach
+    void setUp() {
+        taskRepository.deleteAll();
+    }
+
     @Test
     void getAllTasks_shouldReturnEmptyList() throws Exception {
         mockMvc.perform(get("/api/tasks"))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
     }
