@@ -30,6 +30,7 @@ class TaskServiceTest {
     @InjectMocks
     private TaskService taskService;
 
+
     @Test
     void createTask_shouldSaveTaskWithTodoStatus() {
         TaskRequestDTO request = new TaskRequestDTO(
@@ -37,9 +38,19 @@ class TaskServiceTest {
                 "This is task description"
         );
 
-        when(taskRepository.nextId()).thenReturn(1L);
         when(taskRepository.save(any(Task.class)))
-                .thenAnswer(invocation -> invocation.getArgument(0));
+                .thenAnswer(invocation -> {
+                    Task task = invocation.getArgument(0);
+
+                    return new Task(
+                            1L,
+                            task.getTitle(),
+                            task.getDescription(),
+                            task.getStatus(),
+                            task.getCreatedAt(),
+                            task.getUpdatedAt()
+                    );
+                });
 
         Task result = taskService.createTask(request);
 
@@ -51,8 +62,9 @@ class TaskServiceTest {
         assertNotNull(result.getUpdatedAt());
         assertEquals(result.getCreatedAt(), result.getUpdatedAt());
 
-        verify(taskRepository).save(result);
+        verify(taskRepository).save(any(Task.class));
     }
+
 
     @Test
     void getAllTasks_shouldReturnAllTasks() {
@@ -194,23 +206,25 @@ class TaskServiceTest {
 
     @Test
     void deleteTask_shouldDeleteTaskWhenExists() {
-        when(taskRepository.deleteById(1L)).thenReturn(true);
+        when(taskRepository.existsById(1L)).thenReturn(true);
 
         assertDoesNotThrow(() -> taskService.deleteTask(1L));
 
+        verify(taskRepository).existsById(1L);
         verify(taskRepository).deleteById(1L);
     }
 
     @Test
     void deleteTask_shouldThrowExceptionWhenNotFound() {
-        when(taskRepository.deleteById(111L)).thenReturn(false);
+        when(taskRepository.existsById(111L)).thenReturn(false);
 
         assertThrows(
                 TaskNotFoundException.class,
                 () -> taskService.deleteTask(111L)
         );
 
-        verify(taskRepository).deleteById(111L);
+        verify(taskRepository).existsById(111L);
+        verify(taskRepository, never()).deleteById(111L);
     }
 
 
