@@ -6,7 +6,7 @@ import io.github.konstantinbushuev.tasktracker03postgresql.model.TaskStatus;
 import io.github.konstantinbushuev.tasktracker03postgresql.repository.TaskRepository;
 import io.github.konstantinbushuev.tasktracker03postgresql.exception.TaskNotFoundException;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -43,36 +43,26 @@ public class TaskService {
                 .orElseThrow(() -> new TaskNotFoundException(id));
     }
 
+    @Transactional
     public Task updateTask(Long id, TaskRequestDTO request) {
-        Task initialTask = taskRepository.findById(id)
+        Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
-        Task task = new Task(
-                id,
-                request.title(),
-                request.description(),
-                initialTask.getStatus(),
-                initialTask.getCreatedAt(),
-                LocalDateTime.now()
-        );
+        task.updateDetails(request.title(), request.description());
+        task.setUpdatedAt(LocalDateTime.now());
 
-        return taskRepository.save(task);
+        return task;
     }
 
+    @Transactional
     public Task completeTask(Long id) {
-        Task initialTask = taskRepository.findById(id)
+        Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
-        Task task = new Task(
-                id,
-                initialTask.getTitle(),
-                initialTask.getDescription(),
-                TaskStatus.DONE,
-                initialTask.getCreatedAt(),
-                LocalDateTime.now()
-        );
+        task.complete();
+        task.setUpdatedAt(LocalDateTime.now());
 
-        return taskRepository.save(task);
+        return task;
     }
 
     public void deleteTask(Long id) {
