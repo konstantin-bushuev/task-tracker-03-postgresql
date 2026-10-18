@@ -76,4 +76,18 @@ public class Task {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
+
+
+    public void updateDetails(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
+    public void complete() {
+        this.status = TaskStatus.DONE;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

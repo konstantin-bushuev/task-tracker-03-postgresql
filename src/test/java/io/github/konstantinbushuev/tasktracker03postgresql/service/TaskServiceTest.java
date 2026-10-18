@@ -132,8 +132,6 @@ class TaskServiceTest {
         );
 
         when(taskRepository.findById(1L)).thenReturn(Optional.of(existingTask));
-        when(taskRepository.save(any(Task.class)))
-                .thenAnswer(invocation -> invocation.getArgument(0));
 
         Task result = taskService.updateTask(1L, request);
 
@@ -142,8 +140,6 @@ class TaskServiceTest {
         assertEquals(TaskStatus.IN_PROGRESS, result.getStatus());
         assertEquals(createdAt, result.getCreatedAt());
         assertFalse(result.getUpdatedAt().isBefore(createdAt));
-
-        verify(taskRepository).save(result);
     }
 
     @Test
@@ -158,8 +154,6 @@ class TaskServiceTest {
                 TaskNotFoundException.class,
                 () -> taskService.updateTask(111L, request)
         );
-
-        verify(taskRepository, never()).save(any(Task.class));
     }
 
     @Test
@@ -177,8 +171,6 @@ class TaskServiceTest {
 
         when(taskRepository.findById(1L))
                 .thenReturn(Optional.of(existingTask));
-        when(taskRepository.save(any(Task.class)))
-                .thenAnswer(invocation -> invocation.getArgument(0));
 
         Task result = taskService.completeTask(1L);
 
@@ -187,8 +179,6 @@ class TaskServiceTest {
         assertEquals(existingTask.getDescription(), result.getDescription());
         assertEquals(existingTask.getCreatedAt(), result.getCreatedAt());
         assertFalse(result.getUpdatedAt().isBefore(createdAt));
-
-        verify(taskRepository).save(result);
     }
 
     @Test
@@ -200,8 +190,6 @@ class TaskServiceTest {
                 TaskNotFoundException.class,
                 () -> taskService.completeTask(111L)
         );
-
-        verify(taskRepository, never()).save(any(Task.class));
     }
 
     @Test
