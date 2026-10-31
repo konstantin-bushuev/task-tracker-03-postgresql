@@ -16,7 +16,7 @@
 * [x] `feat: replace in-memory repository with Spring Data JPA`
 * [x] `refactor: update updateTask() and completeTask()`
 * [x] `test: verify task persistence and retrieval`
-* [ ] `feat: persist task updates and deletions`
+* [x] `test: verify task updates and deletions`
 * [ ] `test: add PostgreSQL integration tests`
 * [ ] `test: configure database test environment`
 * [ ] `ci: run tests with PostgreSQL`
