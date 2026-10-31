@@ -62,4 +62,53 @@ class TaskRepositoryTest {
         assertEquals("Task description", foundTask.get().getDescription());
     }
 
+    @Test
+    void save_shouldUpdateExistingTask() {
+        LocalDateTime now = LocalDateTime.now();
+
+        Task task = new Task(
+                null,
+                "Original title",
+                "Original description",
+                TaskStatus.TODO,
+                now,
+                now
+        );
+
+        Task savedTask = taskRepository.save(task);
+
+        savedTask.updateDetails("Updated title", "Updated description");
+        savedTask.setUpdatedAt(now.plusMinutes(1));
+
+        Task updatedTask = taskRepository.save(savedTask);
+
+        assertEquals(savedTask.getId(), updatedTask.getId());
+        assertEquals("Updated title", updatedTask.getTitle());
+        assertEquals("Updated description", updatedTask.getDescription());
+        assertEquals(now, updatedTask.getCreatedAt());
+        assertEquals(now.plusMinutes(1), updatedTask.getUpdatedAt());
+    }
+
+    @Test
+    void delete_shouldRemoveTask() {
+        LocalDateTime now = LocalDateTime.now();
+
+        Task task = new Task(
+                null,
+                "Task title",
+                "Task description",
+                TaskStatus.TODO,
+                now,
+                now
+        );
+
+        Task savedTask = taskRepository.save(task);
+
+        taskRepository.delete(savedTask);
+
+        Optional<Task> foundTask = taskRepository.findById(savedTask.getId());
+
+        assertTrue(foundTask.isEmpty());
+    }
+
 }
