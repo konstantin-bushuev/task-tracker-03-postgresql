@@ -18,7 +18,7 @@
 * [x] `test: verify task persistence and retrieval`
 * [x] `test: verify task updates and deletions`
 * [x] `test: add PostgreSQL integration tests`
-* [ ] `test: configure database test environment`
+* [x] `test: configure database test environment`
 * [ ] `ci: run tests with PostgreSQL`
 * [ ] `docs: complete README.md`
 
