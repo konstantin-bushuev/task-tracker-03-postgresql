@@ -19,6 +19,6 @@
 * [x] `test: verify task updates and deletions`
 * [x] `test: add PostgreSQL integration tests`
 * [x] `test: configure database test environment`
-* [ ] `ci: run tests with PostgreSQL`
+* [x] `ci: run tests with PostgreSQL`
 * [ ] `docs: complete README.md`
 
