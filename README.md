@@ -17,7 +17,7 @@
 * [x] `refactor: update updateTask() and completeTask()`
 * [x] `test: verify task persistence and retrieval`
 * [x] `test: verify task updates and deletions`
-* [ ] `test: add PostgreSQL integration tests`
+* [x] `test: add PostgreSQL integration tests`
 * [ ] `test: configure database test environment`
 * [ ] `ci: run tests with PostgreSQL`
 * [ ] `docs: complete README.md`
